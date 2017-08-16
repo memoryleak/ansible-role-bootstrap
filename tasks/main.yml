@@ -1,0 +1,26 @@
+---
+- name: Include security tasks.
+  include: "{{ ansible_os_family }}-security.yml"
+  tags: ['include', 'security']
+
+- name: Include packages installation task.
+  include: "{{ ansible_os_family }}-packages.yml"
+  tags: ['include', 'packages']
+
+- name: Include user creation task.
+  include: users.yml
+  tags: ['include', 'users']
+
+- name: Set PS1.
+  template:
+    dest: /etc/profile.d/prompt.sh
+    mode: 0644
+    src: prompt.sh.j2
+  when:  bootstrap_ps1 != ""
+  tags: ['template', 'prompt']
+
+- name: Set the host name if provided.
+  hostname:
+    name: "{{ bootstrap_hostname }}"
+  when: bootstrap_hostname is defined
+  tags: ['hostname']

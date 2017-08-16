@@ -1,0 +1,20 @@
+---
+- name: Install EPEL.
+  package:
+    name: epel-release
+    state: latest
+  tags: ['package']
+
+- name: Upgrade all packages.
+  package:
+    name: '*'
+    state: latest
+  when: boostrap_upgrade_packages
+  tags: ['package']
+
+- name: Install bootstrap packages.
+  package:
+    name: "{{item}}"
+    state: present
+  with_items: "{{bootstrap_packages}}"
+  tags: ['package']

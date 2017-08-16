@@ -1,0 +1,6 @@
+---
+- name: Set selinux status.
+  selinux:
+    policy: "{{ bootstrap_selinux_policy }}"
+    state: "{{ bootstrap_selinux_state }}"
+  tags: ['selinux', 'security']
