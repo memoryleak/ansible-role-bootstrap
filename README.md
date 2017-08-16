@@ -47,7 +47,7 @@ Example Playbook
 ```
 - hosts: all
   roles:
-    - role: hciftci.bootstrap
+    - role: memoryleak.bootstrap
 ```
 License
 -------
