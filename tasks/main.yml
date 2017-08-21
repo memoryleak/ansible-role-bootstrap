@@ -3,8 +3,12 @@
   include: "{{ ansible_os_family }}-security.yml"
   tags: ['include', 'security']
 
-- name: Include packages installation task.
+- name: Include platform packages installation task.
   include: "{{ ansible_os_family }}-packages.yml"
+  tags: ['include', 'packages']
+
+- name: Include packages installation task.
+  include: "packages.yml"
   tags: ['include', 'packages']
 
 - name: Include user creation task.
