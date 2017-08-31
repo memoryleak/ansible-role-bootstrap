@@ -1,1 +1,6 @@
 ---
+- name: sshd-restarted-handler
+  service:
+    name: sshd
+    state: restarted
+  tags: ['service', 'sshd', 'security']

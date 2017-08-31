@@ -3,6 +3,10 @@
   include: "{{ ansible_os_family }}-security.yml"
   tags: ['include', 'security']
 
+- name: Include sshd security tasks.
+  include: "{{ ansible_os_family }}-sshd-security.yml"
+  tags: ['include', 'security']
+
 - name: Include platform packages installation task.
   include: "{{ ansible_os_family }}-packages.yml"
   tags: ['include', 'packages']

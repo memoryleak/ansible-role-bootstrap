@@ -14,3 +14,4 @@ bootstrap_ps1: \[\e[0;30m\][ \[\e[0;37m\]\t \[\e[0;31m\]\u\[\e[0;37m\]@\[\e[0;34
 
 bootstrap_selinux_policy: targeted
 bootstrap_selinux_state: enforcing
+bootstrap_disable_root_login: false
