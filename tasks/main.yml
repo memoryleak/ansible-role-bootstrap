@@ -15,9 +15,9 @@
   include: "packages.yml"
   tags: ['include', 'packages']
 
-- name: Include user creation task.
-  include: users.yml
-  tags: ['include', 'users']
+# - name: Include user creation task.
+#   include: users.yml
+#   tags: ['include', 'users']
 
 - name: Set PS1.
   template:
