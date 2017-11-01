@@ -3,7 +3,7 @@
   package:
     name: '*'
     state: latest
-  when: boostrap_upgrade_packages
+  when: bootstrap_upgrade_packages
   tags: ['package']
 
 - name: Install bootstrap packages.

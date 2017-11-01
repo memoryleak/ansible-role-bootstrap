@@ -23,14 +23,14 @@ Create a list of groups:
 new_groups: []
 ```
 
-The list of users to be created:
+<!-- The list of users to be created:
 ```
 users: []
-```
+``` -->
 
 Set if packages should be upgraded.
 ```
-boostrap_upgrade_packages: false
+bootstrap_upgrade_packages: false
 ```
 
 Define the PS1 prompt to be used:
