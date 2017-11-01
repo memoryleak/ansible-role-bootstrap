@@ -9,7 +9,7 @@ bootstrap_groups: []
 bootstrap_users: []
 bootstrap_admin_keys: ""
 
-boostrap_upgrade_packages: false
+bootstrap_upgrade_packages: false
 bootstrap_ps1: \[\e[0;30m\][ \[\e[0;37m\]\t \[\e[0;31m\]\u\[\e[0;37m\]@\[\e[0;34m\]\h \[\e[0;33m\]\W \[\e[0;30m\] ] \[\e[0m\]
 
 bootstrap_selinux_policy: targeted
