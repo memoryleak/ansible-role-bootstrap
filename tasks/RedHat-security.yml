@@ -1,6 +1,19 @@
 ---
+- name: Install libselinux as prerequisite for SELinux Ansible module
+  yum:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - libselinux-python
+    - libsemanage-python
+  tags: ['selinux', 'security']
+
 - name: Set selinux status.
   selinux:
+    conf: "{{ item }}"
     policy: "{{ bootstrap_selinux_policy }}"
     state: "{{ bootstrap_selinux_state }}"
   tags: ['selinux', 'security']
+  with_items:
+      - /etc/sysconfig/selinux
+      - /etc/selinux/config
