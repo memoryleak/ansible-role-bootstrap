@@ -42,11 +42,3 @@
     owner: root
     src: sudoers.j2
   tags: ['template', 'users']
-
-- name: Create admin key entries
-  authorized_key:
-    exclusive: false
-    key: "{{bootstrap_admin_keys}}"
-    state: present
-    user: "{{ansible_user|default(lookup('env', 'USER')) }}"
-  tags: ['authorized_key', 'users']

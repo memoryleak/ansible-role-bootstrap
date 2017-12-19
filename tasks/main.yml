@@ -1,23 +1,23 @@
 ---
 - name: Include security tasks.
-  include: "{{ ansible_os_family }}-security.yml"
+  include_tasks: "{{ ansible_os_family }}-security.yml"
   tags: ['include', 'security']
 
 - name: Include sshd security tasks.
-  include: "{{ ansible_os_family }}-sshd-security.yml"
+  include_tasks: "{{ ansible_os_family }}-sshd-security.yml"
   tags: ['include', 'security']
 
 - name: Include platform packages installation task.
-  include: "{{ ansible_os_family }}-packages.yml"
+  include_tasks: "{{ ansible_os_family }}-packages.yml"
   tags: ['include', 'packages']
 
 - name: Include packages installation task.
-  include: "packages.yml"
+  include_tasks: "packages.yml"
   tags: ['include', 'packages']
 
-# - name: Include user creation task.
-#   include: users.yml
-#   tags: ['include', 'users']
+- name: Include user creation task.
+  include_tasks: users.yml
+  tags: ['include', 'users']
 
 - name: Set PS1.
   template:

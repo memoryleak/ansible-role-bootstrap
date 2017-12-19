@@ -3,7 +3,8 @@
   lineinfile:
     line: 'PermitRootLogin no'
     path: /etc/ssh/sshd_config
-    regexp: '^#?PermitRootLogin yes'
+    regexp: '^#?PermitRootLogin .*'
     state: present
   when: bootstrap_disable_root_login
   tags: ['lineinfile', 'security', 'sshd']
+  notify: sshd-restarted-handler
