@@ -10,33 +10,40 @@ No particular requirements.
 
 Role Variables
 --------------
-Define the packages you want to be installed:
-
+List of group names to create:
 ```
-bootstrap_packages:
-  - vim
-  - htop
-  - lsof
+bootstrap_groups: 
+  - admin
+  - webmaster
 ```
-Create a list of groups:
+List of users to create:
 ```
-new_groups: []
+bootstrap_users: 
+  - name: hciftci
+    groups: 
+      - admin
+      - webmaster
+    state: present
+    password: $6$Eds...
+    public_key: ssh-rsa ...
 ```
-
-<!-- The list of users to be created:
-```
-users: []
-``` -->
-
-Set if packages should be upgraded.
+Upgrade all packages:
 ```
 bootstrap_upgrade_packages: false
 ```
+Set selinux policy:
+```
+bootstrap_selinux_policy: targeted
+```
+Set selinux state:
+```
+bootstrap_selinux_state: disabled
+```
+Disable root login:
+```
+bootstrap_disable_root_login: false
+```
 
-Define the PS1 prompt to be used:
-```
-bootstrap_ps1: \[\e[0;30m\][ \[\e[0;37m\]\t \[\e[0;31m\]\u\[\e[0;37m\]@\[\e[0;34m\]\h \[\e[0;33m\]\W \[\e[0;30m\] ] \[\e[0m\]
-```
 Dependencies
 ------------
 
