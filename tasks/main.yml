@@ -1,4 +1,8 @@
 ---
+- name: Include platform packages installation task.
+  include_tasks: "{{ ansible_os_family }}-packages.yml"
+  tags: ['include', 'packages']
+
 - name: Include security tasks.
   include_tasks: "{{ ansible_os_family }}-security.yml"
   tags: ['include', 'security']
@@ -6,10 +10,6 @@
 - name: Include sshd security tasks.
   include_tasks: "{{ ansible_os_family }}-sshd-security.yml"
   tags: ['include', 'security']
-
-- name: Include platform packages installation task.
-  include_tasks: "{{ ansible_os_family }}-packages.yml"
-  tags: ['include', 'packages']
 
 - name: Include packages installation task.
   include_tasks: "packages.yml"
