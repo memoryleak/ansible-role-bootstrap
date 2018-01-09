@@ -14,3 +14,11 @@ bootstrap_ps1: \[\e[0;30m\][ \[\e[0;37m\]\t \[\e[0;31m\]\u\[\e[0;37m\]@\[\e[0;34
 bootstrap_selinux_policy: targeted
 bootstrap_selinux_state: enforcing
 bootstrap_disable_root_login: false
+
+bootstrap_setup_smtp: false
+bootstrap_smtp_host: localhost
+bootstrap_smtp_port: 25
+bootstrap_smtp_user: john.doe@example.net
+bootstrap_smtp_password: secret
+
+bootstrap_timezone: Etc/UTC

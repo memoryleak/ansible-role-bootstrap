@@ -1,0 +1,61 @@
+---
+- name: Install postfix.
+  package:
+    name: postfix
+    state: present
+  tags: ['package', 'smtp']
+
+- name: Setup SASL credentials.
+  template:
+    dest: /etc/postfix/sasl_passwd
+    group: root
+    mode: 0644
+    owner: root
+    src: postfix/sasl_passwd.j2
+    validate: postmap %s
+  tags: ['template', 'smtp']
+
+- name: Set config for smtp_sasl_auth_enable.
+  lineinfile:
+    line: 'smtp_sasl_auth_enable = yes'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_sasl_auth_enable(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted
+
+- name: Set config for smtp_sasl_password_maps.
+  lineinfile:
+    line: 'smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_sasl_password_maps(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted
+
+- name: Set config for smtp_use_tls.
+  lineinfile:
+    line: 'smtp_use_tls = yes'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_use_tls(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted
+
+- name: Set config for smtp_tls_security_level.
+  lineinfile:
+    line: 'smtp_tls_security_level = encrypt'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_tls_security_level(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted
+
+- name: Set config for smtp_tls_note_starttls_offer.
+  lineinfile:
+    line: 'smtp_tls_note_starttls_offer = yes'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_tls_note_starttls_offer(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted
