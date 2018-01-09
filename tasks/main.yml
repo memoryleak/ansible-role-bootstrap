@@ -9,6 +9,7 @@
 
 - name: Include sshd security tasks.
   include_tasks: "{{ ansible_os_family }}-sshd-security.yml"
+  when: bootstrap_ssh_disable_root
   tags: ['include', 'security']
 
 - name: Include packages installation task.
@@ -30,7 +31,7 @@
 - name: Set the host name if provided.
   hostname:
     name: "{{ bootstrap_hostname }}"
-  when: bootstrap_hostname is defined
+  when: bootstrap_hostname is defined and bootstrap_set_hostname
   tags: ['hostname']
 
 - name: Include SMTP installation task.
