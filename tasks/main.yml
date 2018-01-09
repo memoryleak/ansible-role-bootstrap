@@ -16,6 +16,11 @@
   include_tasks: "packages.yml"
   tags: ['include', 'packages']
 
+- name: Include SMTP installation task.
+  include_tasks: "{{ ansible_os_family }}-smtp.yml"
+  when: bootstrap_setup_smtp
+  tags: ['include', 'smtp']
+
 - name: Include user creation task.
   include_tasks: users.yml
   tags: ['include', 'users']
@@ -34,12 +39,7 @@
   when: bootstrap_hostname is defined and bootstrap_set_hostname
   tags: ['hostname']
 
-- name: Include SMTP installation task.
-  include: "{{ ansible_os_family }}-smtp.yml"
-  when: bootstrap_setup_smtp
-  tags: ['include', 'smtp']
-
 - name: Setup timezone.
   timezone: 
-    name: {{ bootstrap_timezone }}
+    name: "{{ bootstrap_timezone }}"
   tags: ['timezone']

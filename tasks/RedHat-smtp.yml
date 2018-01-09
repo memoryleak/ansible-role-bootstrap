@@ -22,7 +22,7 @@
     regexp: '^#?smtp_sasl_auth_enable(.*)$'
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
-  notify: postfix-restarted
+  notify: postfix-restarted-handler
 
 - name: Set config for smtp_sasl_password_maps.
   lineinfile:
@@ -31,7 +31,7 @@
     regexp: '^#?smtp_sasl_password_maps(.*)$'
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
-  notify: postfix-restarted
+  notify: postfix-restarted-handler
 
 - name: Set config for smtp_use_tls.
   lineinfile:
@@ -40,7 +40,7 @@
     regexp: '^#?smtp_use_tls(.*)$'
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
-  notify: postfix-restarted
+  notify: postfix-restarted-handler
 
 - name: Set config for smtp_tls_security_level.
   lineinfile:
@@ -49,7 +49,7 @@
     regexp: '^#?smtp_tls_security_level(.*)$'
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
-  notify: postfix-restarted
+  notify: postfix-restarted-handler
 
 - name: Set config for smtp_tls_note_starttls_offer.
   lineinfile:
@@ -58,4 +58,4 @@
     regexp: '^#?smtp_tls_note_starttls_offer(.*)$'
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
-  notify: postfix-restarted
+  notify: postfix-restarted-handler

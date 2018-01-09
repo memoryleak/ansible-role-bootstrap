@@ -4,3 +4,10 @@
     name: sshd
     state: restarted
   tags: ['service', 'sshd', 'security']
+
+- name: postfix-restarted-handler
+  service:
+    enabled: true
+    name: postfix
+    state: restarted
+  tags: ['service', 'smtp', 'postfix']
