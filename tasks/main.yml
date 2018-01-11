@@ -16,6 +16,11 @@
   include_tasks: "packages.yml"
   tags: ['include', 'packages']
 
+- name: Include hostname tasks.
+  include_tasks: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-hostname.yml"
+  when: bootstrap_hostname is defined and bootstrap_set_hostname
+  tags: ['include', 'hostname']
+
 - name: Include SMTP installation task.
   include_tasks: "{{ ansible_os_family }}-smtp.yml"
   when: bootstrap_setup_smtp
@@ -32,12 +37,6 @@
     src: prompt.sh.j2
   when:  bootstrap_ps1 != ""
   tags: ['template', 'prompt']
-
-- name: Set the host name if provided.
-  hostname:
-    name: "{{ bootstrap_hostname }}"
-  when: bootstrap_hostname is defined and bootstrap_set_hostname
-  tags: ['hostname']
 
 - name: Setup timezone.
   timezone: 

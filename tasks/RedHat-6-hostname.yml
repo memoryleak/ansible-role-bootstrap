@@ -1,0 +1,4 @@
+- name: Set the host name if provided.
+  hostname:
+    name: "{{ bootstrap_hostname }}"
+  tags: ['hostname']
