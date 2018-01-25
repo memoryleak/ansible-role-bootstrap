@@ -30,6 +30,12 @@
   include_tasks: users.yml
   tags: ['include', 'users']
 
+- name: Update banner
+  template:
+    dest: /etc/motd
+    src: motd.j2
+  tags: ['template', 'motd']
+
 - name: Set PS1.
   template:
     dest: /etc/profile.d/prompt.sh
