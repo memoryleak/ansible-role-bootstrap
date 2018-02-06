@@ -52,6 +52,11 @@ Disable root login:
 bootstrap_disable_root_login: false
 ```
 
+Setup locale:
+```
+bootstrap_default_locale: en_US.UTF-8
+```
+
 SMTP relay settings:
 ```
 bootstrap_setup_smtp: false
