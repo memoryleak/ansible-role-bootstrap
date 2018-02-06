@@ -16,6 +16,10 @@
   include_tasks: "packages.yml"
   tags: ['include', 'packages']
 
+- name: Include locale task.
+  include_tasks: "{{ ansible_os_family }}-locale.yml"
+  tags: ['include', 'locale']
+
 - name: Include hostname tasks.
   include_tasks: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}-hostname.yml"
   when: bootstrap_hostname is defined and bootstrap_set_hostname

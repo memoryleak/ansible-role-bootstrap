@@ -1,3 +1,7 @@
 {% for item in bootstrap_users %}
+{% if item.name == "bamboo" %}
+{{ item.name }} ALL=(ALL) NOPASSWD:ALL
+{% else %}
 {{ item.name }} ALL=(ALL) ALL
+{% endif %}
 {% endfor %}

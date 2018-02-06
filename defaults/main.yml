@@ -24,3 +24,4 @@ bootstrap_smtp_password: secret
 bootstrap_timezone: Etc/UTC
 bootstrap_ssh_disable_root: false
 bootstrap_set_hostname: false
+bootstrap_default_locale: en_US.UTF-8

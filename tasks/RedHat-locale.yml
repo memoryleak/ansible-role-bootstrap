@@ -1,0 +1,9 @@
+---
+- name: Copy locale configuration.
+  template: 
+    dest: /etc/locale.conf
+    group: root
+    mode: 0644
+    owner: root
+    src: locale.conf.j2
+  tags: ['template', 'locale']
