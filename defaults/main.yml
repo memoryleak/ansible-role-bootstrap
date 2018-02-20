@@ -25,3 +25,9 @@ bootstrap_timezone: Etc/UTC
 bootstrap_ssh_disable_root: false
 bootstrap_set_hostname: false
 bootstrap_default_locale: en_US.UTF-8
+
+bootstrap_systemd_unit_install: false
+bootstrap_systemd_unit_name: "example.service"
+bootstrap_systemd_unit_file: "files/example.service"
+bootstrap_systemd_exec_path: "/usr/local/bin/test"
+bootstrap_systemd_exec_file: "files/test.sh"

@@ -25,6 +25,11 @@
   when: bootstrap_hostname is defined and bootstrap_set_hostname
   tags: ['include', 'hostname']
 
+- name: Include SystemD tasks.
+  include_tasks: "systemd.yml"
+  when: bootstrap_systemd_unit_install
+  tags: ['include', 'systemd']
+
 - name: Include SMTP installation task.
   include_tasks: "{{ ansible_os_family }}-smtp.yml"
   when: bootstrap_setup_smtp
