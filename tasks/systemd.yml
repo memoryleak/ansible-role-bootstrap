@@ -17,5 +17,5 @@
   systemd: 
     enabled: true
     name: "{{ bootstrap_systemd_unit_name }}"
-    state: started
+    state: stopped
   tags: ['systemd']
