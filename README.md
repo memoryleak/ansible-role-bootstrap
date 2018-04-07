@@ -20,15 +20,15 @@ bootstrap_packages:
 
 List of group names to create:
 ```
-bootstrap_groups: 
+bootstrap_groups:
   - admin
   - webmaster
 ```
 List of users to create:
 ```
-bootstrap_users: 
+bootstrap_users:
   - name: hciftci
-    groups: 
+    groups:
       - admin
       - webmaster
     state: present
@@ -69,6 +69,16 @@ System timezone:
 
 ```
 bootstrap_timezone: Etc/UTC
+```
+
+Install system.d unit file:
+
+```
+bootstrap_systemd_unit_install: false
+bootstrap_systemd_unit_name: "example.service"
+bootstrap_systemd_unit_file: "files/example.service"
+bootstrap_systemd_exec_path: "/usr/local/bin/test"
+bootstrap_systemd_exec_file: "files/test.sh"
 ```
 
 Dependencies
