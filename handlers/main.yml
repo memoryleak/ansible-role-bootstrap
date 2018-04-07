@@ -1,11 +1,13 @@
 ---
 - name: sshd-restarted-handler
+  become: yes
   service:
     name: sshd
     state: restarted
   tags: ['service', 'sshd', 'security']
 
 - name: postfix-restarted-handler
+  become: yes
   service:
     enabled: true
     name: postfix

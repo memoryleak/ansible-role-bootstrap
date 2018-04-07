@@ -1,5 +1,6 @@
 ---
 - name: Install EPEL.
+  become: yes
   package:
     name: epel-release
     state: latest

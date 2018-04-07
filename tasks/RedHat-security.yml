@@ -1,5 +1,6 @@
 ---
 - name: Install libselinux as prerequisite for SELinux Ansible module
+  become: yes
   yum:
     name: "{{item}}"
     state: latest
@@ -9,11 +10,12 @@
   tags: ['selinux', 'security']
 
 - name: Set selinux status.
+  become: yes
   selinux:
     conf: "{{ item }}"
     policy: "{{ bootstrap_selinux_policy }}"
     state: "{{ bootstrap_selinux_state }}"
   tags: ['selinux', 'security']
   with_items:
-      - /etc/sysconfig/selinux
-      - /etc/selinux/config
+    - /etc/sysconfig/selinux
+    - /etc/selinux/config

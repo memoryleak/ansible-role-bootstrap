@@ -1,6 +1,7 @@
 ---
 - name: Copy locale configuration.
-  template: 
+  become: yes
+  template:
     dest: /etc/locale.conf
     group: root
     mode: 0644

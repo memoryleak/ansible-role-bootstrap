@@ -1,5 +1,6 @@
 ---
 - name: Create new groups
+  become: yes
   group:
     name: "{{ item }}"
     state: present
@@ -8,6 +9,7 @@
   with_items: "{{ bootstrap_groups }}"
 
 - name: Create user
+  become: yes
   user:
     append: yes
     generate_ssh_key: true
@@ -21,6 +23,7 @@
   with_items: "{{ bootstrap_users }}"
 
 - name: Create authorized_key file
+  become: yes
   authorized_key:
     exclusive: false
     key: "{{ item.public_key }}"
@@ -30,11 +33,13 @@
   tags: ['authorized_key', 'users']
 
 - name: Chage the user
+  become: yes
   command: /usr/bin/chage -M 99999 -m 0 -E -1 {{ item.name }}
   with_items: "{{ bootstrap_users }}"
   tags: ['users', 'chage']
 
 - name: Create sudoers entries for the users.
+  become: yes
   template:
     dest: /etc/sudoers.d/100-admins
     group: root

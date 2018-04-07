@@ -1,20 +1,23 @@
 ---
 - name: Copy systemd service executable.
-  copy: 
+  become: yes
+  copy:
     dest: "{{ bootstrap_systemd_exec_path }}"
     mode: 0755
     src: "{{ bootstrap_systemd_exec_file }}"
-  tags: ['copy','systemd']
+  tags: ['copy', 'systemd']
 
 - name: Copy systemd service unit file.
-  copy: 
+  become: yes
+  copy:
     dest: "/usr/lib/systemd/system/{{ bootstrap_systemd_unit_name }}"
     mode: 0644
     src: "{{ bootstrap_systemd_unit_file }}"
-  tags: ['copy','systemd']
+  tags: ['copy', 'systemd']
 
 - name: Enable unit file.
-  systemd: 
+  become: yes
+  systemd:
     enabled: true
     name: "{{ bootstrap_systemd_unit_name }}"
     state: stopped

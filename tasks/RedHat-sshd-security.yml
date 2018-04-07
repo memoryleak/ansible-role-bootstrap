@@ -1,5 +1,6 @@
 ---
 - name: Disable root login.
+  become: yes
   lineinfile:
     line: 'PermitRootLogin no'
     path: /etc/ssh/sshd_config

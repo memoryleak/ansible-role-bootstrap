@@ -1,11 +1,13 @@
 ---
 - name: Install postfix.
+  become: yes
   package:
     name: postfix
     state: present
   tags: ['package', 'smtp']
 
 - name: Setup SASL credentials.
+  become: yes
   template:
     dest: /etc/postfix/sasl_passwd
     group: root
@@ -16,6 +18,7 @@
   tags: ['template', 'smtp']
 
 - name: Set config for smtp_sasl_auth_enable.
+  become: yes
   lineinfile:
     line: 'smtp_sasl_auth_enable = yes'
     dest: /etc/postfix/main.cf
@@ -25,6 +28,7 @@
   notify: postfix-restarted-handler
 
 - name: Set config for smtp_sasl_password_maps.
+  become: yes
   lineinfile:
     line: 'smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd'
     dest: /etc/postfix/main.cf
@@ -34,6 +38,7 @@
   notify: postfix-restarted-handler
 
 - name: Set config for smtp_use_tls.
+  become: yes
   lineinfile:
     line: 'smtp_use_tls = yes'
     dest: /etc/postfix/main.cf
@@ -43,6 +48,7 @@
   notify: postfix-restarted-handler
 
 - name: Set config for smtp_tls_security_level.
+  become: yes
   lineinfile:
     line: 'smtp_tls_security_level = encrypt'
     dest: /etc/postfix/main.cf
@@ -52,6 +58,7 @@
   notify: postfix-restarted-handler
 
 - name: Set config for smtp_tls_note_starttls_offer.
+  become: yes
   lineinfile:
     line: 'smtp_tls_note_starttls_offer = yes'
     dest: /etc/postfix/main.cf

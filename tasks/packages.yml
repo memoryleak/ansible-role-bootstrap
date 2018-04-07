@@ -1,5 +1,6 @@
 ---
 - name: Upgrade all packages.
+  become: yes
   package:
     name: '*'
     state: latest
@@ -7,6 +8,7 @@
   tags: ['package']
 
 - name: Install bootstrap packages.
+  become: yes
   package:
     name: "{{item}}"
     state: present
