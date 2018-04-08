@@ -1,11 +1,9 @@
 ---
 - name: Set the host name if provided.
-  become: yes
   hostname:
     name: "{{ bootstrap_hostname }}"
   tags: ['hostname']
 
 - name: Use hostnamectl to change permanently.
-  become: yes
   command: hostnamectl set-hostname "{{ bootstrap_hostname }}"
   tags: ['command', 'hostname']

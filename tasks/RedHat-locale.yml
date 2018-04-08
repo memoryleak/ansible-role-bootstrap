@@ -1,6 +1,5 @@
 ---
 - name: Copy locale configuration.
-  become: yes
   template:
     dest: /etc/locale.conf
     group: root

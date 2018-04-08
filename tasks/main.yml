@@ -40,14 +40,12 @@
   tags: ['include', 'users']
 
 - name: Update banner
-  become: yes
   template:
     dest: /etc/motd
     src: motd.j2
   tags: ['template', 'motd']
 
 - name: Set PS1.
-  become: yes
   template:
     dest: /etc/profile.d/prompt.sh
     mode: 0644
@@ -56,7 +54,6 @@
   tags: ['template', 'prompt']
 
 - name: Setup timezone.
-  become: yes
   timezone:
     name: "{{ bootstrap_timezone }}"
   tags: ['timezone']
