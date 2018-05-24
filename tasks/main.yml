@@ -35,10 +35,6 @@
   when: bootstrap_setup_smtp
   tags: ['include', 'smtp']
 
-- name: Include user creation task.
-  include_tasks: users.yml
-  tags: ['include', 'users']
-
 - name: Update banner
   template:
     dest: /etc/motd
