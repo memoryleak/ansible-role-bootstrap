@@ -1,9 +1,12 @@
 ---
-- name: Install postfix.
+- name: Install postfix and related packages.
   package:
-    name: postfix
+    name: "{{ item }}"
     state: present
   tags: ['package', 'smtp']
+  with_items:
+    - cyrus-sasl-plain
+    - postfix
 
 - name: Setup SASL credentials.
   template:
@@ -15,6 +18,15 @@
     validate: postmap %s
   tags: ['template', 'smtp']
 
+- name: Set config for relayhost.
+  lineinfile:
+    line: 'relayhost = [{{bootstrap_smtp_host}}]:{{bootstrap_smtp_port}}'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?relayhost(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted-handler
+
 - name: Set config for smtp_sasl_auth_enable.
   lineinfile:
     line: 'smtp_sasl_auth_enable = yes'
@@ -23,6 +35,16 @@
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
   notify: postfix-restarted-handler
+
+- name: Set config for smtp_sasl_security_options.
+  lineinfile:
+    line: 'smtp_sasl_security_options = noanonymous'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?smtp_sasl_security_options(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted-handler
+
 
 - name: Set config for smtp_sasl_password_maps.
   lineinfile:
@@ -56,6 +78,15 @@
     line: 'smtp_tls_note_starttls_offer = yes'
     dest: /etc/postfix/main.cf
     regexp: '^#?smtp_tls_note_starttls_offer(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted-handler
+
+- name: Set config for smtp_fallback_relay.
+  lineinfile:
+    line: '#-o smtp_fallback_relay='
+    dest: /etc/postfix/main.cf
+    regexp: '-o smtp_fallback_relay='
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
   notify: postfix-restarted-handler
