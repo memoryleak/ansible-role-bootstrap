@@ -18,6 +18,16 @@
     validate: postmap %s
   tags: ['template', 'smtp']
 
+- name: Check if SASL credentials db file exists.
+  stat:
+    path: /etc/postfix/sasl_passwd.db
+  register: stat_sasl_passwd
+
+- name: Create SASL credentials db.
+  shell: postmap /etc/postfix/sasl_passwd
+  tags: ['shell']
+  when: stat_sasl_passwd.stat.exists == false
+
 - name: Set config for relayhost.
   lineinfile:
     line: 'relayhost = [{{bootstrap_smtp_host}}]:{{bootstrap_smtp_port}}'
@@ -44,7 +54,6 @@
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
   notify: postfix-restarted-handler
-
 
 - name: Set config for smtp_sasl_password_maps.
   lineinfile:
@@ -89,4 +98,35 @@
     regexp: '-o smtp_fallback_relay='
     state: present
   tags: ['lineinfile', 'smtp', 'sasl']
+  notify: postfix-restarted-handler
+
+- name: Set config for virtual_alias_maps.
+  lineinfile:
+    line: 'virtual_alias_maps = regexp:/etc/postfix/virtual'
+    dest: /etc/postfix/main.cf
+    regexp: '^#?virtual_alias_maps(.*)$'
+    state: present
+  tags: ['lineinfile', 'smtp']
+  when: bootstrap_smtp_rewrite_all
+  notify: postfix-restarted-handler
+
+- name: Set config for virtual_alias_domains.
+  lineinfile:
+    line: 'virtual_alias_domains ='
+    dest: /etc/postfix/main.cf
+    regexp: '^#?virtual_alias_domains =$'
+    state: present
+  tags: ['lineinfile', 'smtp']
+  when: bootstrap_smtp_rewrite_all
+  notify: postfix-restarted-handler
+
+- name: Setup virtual_alias_maps file.
+  template:
+    dest: /etc/postfix/virtual
+    group: root
+    mode: 0644
+    owner: root
+    src: postfix/virtual.j2
+  tags: ['template', 'smtp']
+  when: bootstrap_smtp_rewrite_all
   notify: postfix-restarted-handler
